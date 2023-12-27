@@ -136,7 +136,7 @@ textarea {
 .lang{
   cursor: pointer;
   font-size: 35px;
-  padding: 7.5px 20.5px;
+  padding: 15px 20.5px;
   display: flex;
   align-items: center;
   /* margin-bottom: 10px; */
@@ -155,14 +155,12 @@ textarea {
   padding-top: 20px;
 }
 
-.cpp { 
+.active { 
   color: #FFA116;
-  /* font-size: 45px; */
-  /* border-radius: 3px; */
-  /* margin-right: -12px; */
-  /* background-color: #FFA116; */
   border: 1px solid gray;
   border-right: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .border {
