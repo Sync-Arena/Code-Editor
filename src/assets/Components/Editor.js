@@ -12,7 +12,7 @@ const Editor = () => {
   const handleResize = () => {
     if (editorInstanceRef.current) {
       const width = window.innerWidth;
-      editorInstanceRef.current.setSize(0.7 * width, 500);
+      editorInstanceRef.current.setSize('calc(65 * vw)', 'calc(90vh - 60px)');
     }
   };
 
@@ -27,18 +27,12 @@ const Editor = () => {
       editorInstanceRef.current = editor;
       handleResize();
       window.addEventListener('resize', handleResize);
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      }
     }
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
   }, []); 
 
   return (
     <div className="Editor">
-      <div ref={editorContainerRef} className="code-area"></div>
+      <div ref={editorContainerRef}></div>
     </div>
   );
 };

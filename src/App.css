@@ -1,3 +1,173 @@
 body {
   background-color: #010409;
+  color: #FFF;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+}
+
+h1 {
+  color: #FFA116;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10vh;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 90vh;
+  font-size: 16px;
+}
+
+.input-output-area {
+  color: #fff;
+  width: 30vw;
+  height: 100%;
+  font-size: 20px;
+}
+
+.code-area {
+  width: 65vw;
+  /* border-left: 1px solid gray; */
+}
+
+.header {
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.header p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+  border: 1px solid gray;
+  border-bottom: none;
+  border-left: none;
+}
+
+.control-panel {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  border: 1px solid gray;
+  border-right: none;
+  border-left: none;
+  
+}
+
+.control-panel div { 
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.control-panel button { 
+  padding: 5px 20px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 20px;
+  background-color: #722DCA;
+  outline: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.input, 
+.output {
+  height: 50%;
+  overflow: hidden;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  border: 1px solid gray;
+  border-bottom: none;
+  height: 39px;
+  padding-left: 10px;
+}
+
+textarea { 
+  color: #FFF;
+  padding: 10px;
+  padding-top: 20px;
+  height: calc(100% - 39px);
+  width: 100%;
+  outline: none;
+  /* background-color: #282a36; */
+  background-color: #010409;
+  border: 1px solid gray;
+  border-bottom: none;
+  font-size: 16px;
+  resize: none;
+
+}
+
+.languages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 5vw;
+}
+
+.languages div {
+  border-right: 1px solid gray;
+}
+
+.lang{
+  cursor: pointer;
+  font-size: 35px;
+  padding: 7.5px 20.5px;
+  display: flex;
+  align-items: center;
+  /* margin-bottom: 10px; */
+  /* color: #FFF; */
+}
+
+.languages div:hover { 
+  color: #FFA116;
+}
+
+.cm-s-dracula.CodeMirror, .cm-s-dracula .CodeMirror-gutters {
+  background-color: #010409 !important;
+}
+
+.Editor {
+  padding-top: 20px;
+}
+
+.cpp { 
+  color: #FFA116;
+  /* font-size: 45px; */
+  /* border-radius: 3px; */
+  /* margin-right: -12px; */
+  /* background-color: #FFA116; */
+  border: 1px solid gray;
+  border-right: none;
+}
+
+.border {
+  width: 100%;
+  height: 100%;
+  border-right: 1px solid gray;
+  margin-bottom: 0px;
 }
