@@ -6,19 +6,21 @@ import { MdLightMode, MdNightlightRound } from "react-icons/md";
 import { IoIosSave } from "react-icons/io";
 import { HiDownload } from "react-icons/hi";
 import { VscDebugStart } from "react-icons/vsc";
+import axios from 'axios';
 import './App.css'; 
+
 
 // <MdNightlightRound />
 // <TbMinimize />
 
-// <button className='run'>Run</button>
-// <button className='save'>Save</button>
-
 const App = () => {
 
   const [langNumber, setLangNumber] = useState(0);
-  const fileRef = useRef();
-
+  const [editorContent, setEditorContent] = useState("");
+  const [output, setOutput] = useState("");
+  const fileRef = useRef("");
+  const inputRef = useRef("");
+  
   const changeFileName = (number) => {
     if (number === 0) {
       fileRef.current.textContent = "main.cpp";
@@ -37,11 +39,30 @@ const App = () => {
     changeFileName(number);
   }
 
+  const handleEditorChang = (newContent) => {
+    setEditorContent(newContent);
+  }
+
+  const compileCode = async () => {
+    const lang = langNumber === 0 ? 'Cpp' : langNumber === 1 ? 'Python' : 'Java';
+
+    try {
+      const response = await axios.post(`http://localhost:9000/compile`, {
+        code: editorContent,
+        input: inputRef.current.value, 
+        lang: lang,
+      });
+
+      setOutput(response.data.output)
+    } catch (error) {
+      console.error('Error compiling code:', error);
+    }
+  };
+
   useEffect (() => {
     try {
       let lstLang = JSON.parse(window.localStorage.getItem('langNumber'));
       if (!isNaN(lstLang)) {
-        console.log(lstLang);
         changeFileName(lstLang);
         setLangNumber(lstLang);
       }
@@ -79,7 +100,7 @@ const App = () => {
             <div className='control-panel'>
              
               <div>
-                <VscDebugStart className='run'/>
+                <VscDebugStart className='run' onClick={compileCode}/>
               </div>
               <div>
                 <IoIosSave className='save'/>
@@ -95,16 +116,16 @@ const App = () => {
               </div>
             </div>
           </div>
-          <Editor />
+          <Editor lang={langNumber} onEditorChange={handleEditorChang}/>
         </div>
         <div className='input-output-area'>
           <div className='input'>
             <label>Input</label>
-            <textarea></textarea>
+            <textarea ref={inputRef}></textarea>
           </div>
           <div className='output'>
             <label>Output</label>
-            <textarea></textarea>
+            <textarea readOnly value={output}></textarea>
           </div>
         </div>
       </div>
@@ -113,3 +134,5 @@ const App = () => {
 };
 
 export default App;
+
+
