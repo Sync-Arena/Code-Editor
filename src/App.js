@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import Editor from './assets/Components/Editor';
 import { TbBrandCpp, TbMaximize } from "react-icons/tb";
 import { FaPython, FaJava } from "react-icons/fa";
-import { MdLightMode, MdNightlightRound } from "react-icons/md";
-import { IoIosSave } from "react-icons/io";
+import { FaMoon } from "react-icons/fa6";
+import { MdLightMode } from "react-icons/md";
 import { HiDownload } from "react-icons/hi";
-import { VscDebugStart } from "react-icons/vsc";
+import { IoStopOutline, IoPlayOutline } from "react-icons/io5";
+import { saveAs } from 'file-saver';
 import axios from 'axios';
 import './App.css'; 
-
 
 // 
 // <TbMinimize />
@@ -21,16 +21,20 @@ const App = () => {
   const [isDark, setIsDark] = useState(0);
   const fileRef = useRef("");
   const inputRef = useRef("");
+  const currentFileNameRef = useRef(""); 
   
   const changeFileName = (number) => {
     if (number === 0) {
-      fileRef.current.textContent = "main.cpp";
+      currentFileNameRef.current = "main.cpp";
+      fileRef.current.textContent = currentFileNameRef.current;
     }
     else if (number === 1) {
-      fileRef.current.textContent = "main.py";
+      currentFileNameRef.current = "main.py";
+      fileRef.current.textContent = currentFileNameRef.current;
     }
     else {
-      fileRef.current.textContent = "main.java";
+      currentFileNameRef.current = "main.java";
+      fileRef.current.textContent = currentFileNameRef.current;
     }
   }
 
@@ -73,6 +77,12 @@ const App = () => {
     setIsDark(0);
   }
 
+  const downloadFile = () => {
+    const blob = new Blob([editorContent], { type: 'text/plain' });
+    saveAs(blob, currentFileNameRef.current);
+  }
+
+
   useEffect (() => {
     try {
       let lstLang = JSON.parse(window.localStorage.getItem('langNumber'));
@@ -86,8 +96,14 @@ const App = () => {
     catch {
       console.error("Invalid number retrieved from localStorage");
     }
+    document.addEventListener('keydown', (event) => {
+      if ((event.key === 's' || event.key === 'S') && (event.ctrlKey || event.metaKey)) {
+        // event.preventDefault();
+        // downloadFile();
+      }
+    });
   }, []);
-
+  
   return (
     <div className="App">
       <h1>FlexiCode</h1>
@@ -116,24 +132,24 @@ const App = () => {
             <div className='control-panel'>
              
               <div>
-                <VscDebugStart className='run' onClick={compileCode}/>
+                <IoPlayOutline className='run' onClick={compileCode}/>
               </div>
               <div>
-                <IoIosSave className='save'/>
+                <IoStopOutline className='stop'/>
               </div>
               <div>
-                <HiDownload className='download'/>
+                <HiDownload onClick={downloadFile} className='download'/>
               </div>
               <div>
                 {isDark ? <MdLightMode className='dark-mode' onClick={setLight}/> : 
-                  <MdNightlightRound className='light-mode' onClick={setDark}/>}
+                  <FaMoon className='light-mode' onClick={setDark}/>}
               </div>
               <div>
                 <TbMaximize className='maximize'/>
               </div>
             </div>
           </div>
-          <Editor lang={langNumber} onEditorChange={handleEditorChang}/>
+          <Editor lang={langNumber} onEditorChange={handleEditorChang} theme={isDark}/>
         </div>
         <div className='input-output-area'>
           <div className='input'>

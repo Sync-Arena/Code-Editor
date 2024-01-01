@@ -1,15 +1,13 @@
 :root {
   --font-color:  #000;
-  --primary-color: #fff;
-  --secondary-color: #FFA116; 
-  --border-color: gray;
+  --primary-color: #EEE;
+  --secondary-color: #0057FF; 
+  --border-color: #657786;
 }
 
 [theme='dark'] {
   --font-color:  #fff;
-  --primary-color: #010409;
-  --secondary-color: #FFA116; 
-  --border-color: gray;
+  --primary-color: #14171A;
 }
 
 body {
@@ -22,7 +20,7 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.4;
-  transition: all 0.03s ease-in-out;
+  /* transition: color 0.03s ease; */
 }
 
 h1 {
@@ -142,6 +140,7 @@ textarea {
   width: 5vw;
 }
 
+
 .languages div {
   border-right: 1px solid var(--border-color);
 }
@@ -160,8 +159,12 @@ textarea {
   color: var(--secondary-color);
 }
 
-.cm-s-dracula.CodeMirror, .cm-s-dracula .CodeMirror-gutters {
+.cm-s-dracula.CodeMirror, 
+.cm-s-dracula .CodeMirror-gutters,
+.cm-s-juejin.CodeMirror, 
+.cm-s-juejin .CodeMirror-gutters {
   background-color: var(--primary-color) !important;
+  border: none;
 }
 
 .Editor {
