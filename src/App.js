@@ -10,7 +10,7 @@ import axios from 'axios';
 import './App.css'; 
 
 
-// <MdNightlightRound />
+// 
 // <TbMinimize />
 
 const App = () => {
@@ -18,6 +18,7 @@ const App = () => {
   const [langNumber, setLangNumber] = useState(0);
   const [editorContent, setEditorContent] = useState("");
   const [output, setOutput] = useState("");
+  const [isDark, setIsDark] = useState(0);
   const fileRef = useRef("");
   const inputRef = useRef("");
   
@@ -53,19 +54,34 @@ const App = () => {
         lang: lang,
       });
 
-      setOutput(response.data.output)
+      // setOutput(response.data.output)
+      console.log(response.data);
     } catch (error) {
       console.error('Error compiling code:', error);
     }
   };
 
+  const setDark = () => {
+    document.querySelector("body").setAttribute('theme', 'dark');
+    window.localStorage.setItem('theme', JSON.stringify('dark'));
+    setIsDark(1);
+  }
+
+  const setLight = () => {
+    document.querySelector("body").setAttribute('theme', 'light');
+    window.localStorage.setItem('theme', JSON.stringify('light'));
+    setIsDark(0);
+  }
+
   useEffect (() => {
     try {
       let lstLang = JSON.parse(window.localStorage.getItem('langNumber'));
+      let theme = JSON.parse(window.localStorage.getItem('theme'));
       if (!isNaN(lstLang)) {
         changeFileName(lstLang);
         setLangNumber(lstLang);
       }
+      if (theme === 'dark')setDark();
     }
     catch {
       console.error("Invalid number retrieved from localStorage");
@@ -109,7 +125,8 @@ const App = () => {
                 <HiDownload className='download'/>
               </div>
               <div>
-                <MdLightMode className='light-mode'/>
+                {isDark ? <MdLightMode className='dark-mode' onClick={setLight}/> : 
+                  <MdNightlightRound className='light-mode' onClick={setDark}/>}
               </div>
               <div>
                 <TbMaximize className='maximize'/>
