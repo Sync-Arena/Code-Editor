@@ -2,11 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import Editor from './assets/Components/Editor';
 import { TbBrandCpp, TbMaximize } from "react-icons/tb";
 import { FaPython, FaJava } from "react-icons/fa";
-import { FaMoon } from "react-icons/fa6";
+import { FaMoon, FaShareFromSquare } from "react-icons/fa6";
 import { MdLightMode } from "react-icons/md";
 import { HiDownload } from "react-icons/hi";
 import { IoStopOutline, IoPlayOutline } from "react-icons/io5";
+import { GrPowerReset } from "react-icons/gr";
+import { CiShare1 } from "react-icons/ci";
 import { saveAs } from 'file-saver';
+
 import axios from 'axios';
 import './App.css'; 
 
@@ -146,6 +149,12 @@ const App = () => {
               </div>
               <div>
                 <TbMaximize className='maximize'/>
+              </div>
+              <div>
+                <GrPowerReset className='reset'/>
+              </div>
+              <div>
+                <CiShare1 className='share'/>
               </div>
             </div>
           </div>

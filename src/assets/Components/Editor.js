@@ -22,7 +22,7 @@ const Editor = (props) => {
 
   useEffect(() => {
     let mode = 'text/plain'; // Default mode
-
+  
     switch (props.lang) {
       case 0:
         mode = 'text/x-c++src';
@@ -34,29 +34,39 @@ const Editor = (props) => {
         mode = 'text/x-java';
         break;
     }
-
+  
     const theme = props.theme === 1 ? 'dracula' : 'juejin';
-
+  
     if (!editorInstanceRef.current) {
       const editor = CodeMirror(editorContainerRef.current, {
         mode: mode,
         theme: theme,
         lineNumbers: true,
         autoCloseBrackets: true,
-        extraKeys: { 'Ctrl-Space': 'autocomplete' },
       });
-
+  
       editor.setOption('hintOptions', {
         hint: CodeMirror.hint.anyword,
         completeSingle: false,
       });
-
+  
       editorInstanceRef.current = editor;
-
-      editor.on('change', () => {
+  
+      const isLetter = (ch) => /^[a-zA-Z]+$/.test(ch);
+  
+      editor.on('change', (cm, change) => {
+        const cursor = cm.getCursor();
+        const lineContent = cm.getLine(cursor.line);
+  
+        // Check if the change involves typing a letter
+        if (change.text.length === 1 && isLetter(change.text[0])) {
+          // Trigger auto-completion
+          CodeMirror.commands.autocomplete(cm, null, { completeSingle: false });
+        }
+  
         props.onEditorChange(editorInstanceRef.current.getValue());
       });
-
+  
       handleResize();
       window.addEventListener('resize', handleResize);
     } else {
@@ -65,6 +75,7 @@ const Editor = (props) => {
       editorInstanceRef.current.setOption('theme', theme);
     }
   }, [props.lang, props.theme]);
+  
 
   return (
     <div className="Editor">
