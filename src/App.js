@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Editor from './assets/Components/Editor';
-import { TbBrandCpp, TbMaximize } from "react-icons/tb";
+import { TiCodeOutline } from "react-icons/ti"; // Corrected import statement
+import { TiArrowMaximise } from "react-icons/ti";
+
 import { FaPython, FaJava } from "react-icons/fa";
 import { FaMoon, FaShareFromSquare } from "react-icons/fa6";
 import { MdLightMode } from "react-icons/md";
@@ -115,7 +117,7 @@ const App = () => {
           <div className='border'></div>
           <div className={`cpp lang ${langNumber === 0 && 'active'}`}
           onClick={() => changeLang(0)}>
-            <TbBrandCpp />
+            <TiCodeOutline />
           </div>
           <div className={`py lang ${langNumber === 1 && 'active'}`} 
             onClick={() => changeLang(1)}>
@@ -148,7 +150,7 @@ const App = () => {
                   <FaMoon className='light-mode' onClick={setDark}/>}
               </div>
               <div>
-                <TbMaximize className='maximize'/>
+                <TiArrowMaximise className='maximize'/>
               </div>
               <div>
                 <GrPowerReset className='reset'/>
